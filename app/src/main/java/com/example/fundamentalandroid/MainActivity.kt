@@ -35,7 +35,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun moveActivity(user: User) {
         val moveIntent = Intent(this, UserDetail::class.java)
+
         moveIntent.putExtra(UserDetail.EXTRA_UNAME, user.username)
+        moveIntent.putExtra(UserDetail.EXTRA_NAME, user.name)
+        moveIntent.putExtra(UserDetail.EXTRA_REPO, user.repository)
+        moveIntent.putExtra(UserDetail.EXTRA_PROFILE_PICTURE, user.profilePicture)
+//
         startActivity(moveIntent)
     }
 
@@ -44,9 +49,10 @@ class MainActivity : AppCompatActivity() {
             val dataUsername = resources.getStringArray(R.array.username)
             val dataName = resources.getStringArray(R.array.name)
             val dataProfilePicture = resources.obtainTypedArray(R.array.avatar)
+            val dataRepository = resources.getStringArray(R.array.repository)
             val listUser = ArrayList<User>()
             for (i in dataUsername.indices){
-                val user = User(dataUsername[i], dataName[i], dataProfilePicture.getResourceId(i, -1))
+                val user = User(dataUsername[i], dataName[i], dataProfilePicture.getResourceId(i, -1), dataRepository[i])
                 listUser.add(user)
             }
             return listUser
