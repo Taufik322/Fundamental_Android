@@ -21,7 +21,6 @@ class UserDetail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
 
-
         val tvDataUnameReceived: TextView = findViewById(R.id.tv_detail_username)
         val tvDataNameReceived: TextView = findViewById(R.id.tv_detail_name)
         val tvDataRepositoryReceived: TextView = findViewById(R.id.tv_detail_repository)
