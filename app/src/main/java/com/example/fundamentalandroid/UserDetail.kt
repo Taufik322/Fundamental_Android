@@ -1,5 +1,6 @@
 package com.example.fundamentalandroid
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,16 +10,10 @@ import com.bumptech.glide.Glide
 class UserDetail : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_UNAME = "extra_uname"
-        const val EXTRA_NAME = "extra_name"
-        const val EXTRA_REPO = "extra_repo"
-        const val EXTRA_PROFILE_PICTURE = "extra_profile_picture"
-        const val EXTRA_FOLLOWERS = "extra_followers"
-        const val EXTRA_FOLLOWING = "extra_following"
-        const val EXTRA_LOCATION = "extra_location"
-        const val EXTRA_COMPANY = "extra_company"
+        const val EXTRA_USER_IDENTITY = "extra_user_identity"
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
@@ -32,25 +27,16 @@ class UserDetail : AppCompatActivity() {
         val tvDataLocation: TextView = findViewById(R.id.tv_detail_location)
         val tvDataCompany: TextView = findViewById(R.id.tv_detail_company)
 
-        val uname = intent.getStringExtra(EXTRA_UNAME)
-        val name = intent.getStringExtra(EXTRA_NAME)
-        val repo = intent.getStringExtra(EXTRA_REPO)
-        val repoText = "$repo Repostiory"
-        val profilePicture = intent.getIntExtra(EXTRA_PROFILE_PICTURE, 0)
-        val followers = intent.getStringExtra(EXTRA_FOLLOWERS)
-        val following = intent.getStringExtra(EXTRA_FOLLOWING)
-        val location = intent.getStringExtra(EXTRA_LOCATION)
-        val company = intent.getStringExtra(EXTRA_COMPANY)
+        val userIdentity = intent.getParcelableExtra<User>(EXTRA_USER_IDENTITY) as User
+        tvDataUnameReceived.text = userIdentity.username
+        tvDataNameReceived.text = userIdentity.name
+        tvDataRepositoryReceived.text = "${userIdentity.repository} Repository"
+        Glide.with(this).load(userIdentity.profilePicture).circleCrop().into(tvDataProfilePicture)
+        tvDataFollowers.text = userIdentity.followers
+        tvDataFollowing.text = userIdentity.following
+        tvDataLocation.text = userIdentity.location
+        tvDataCompany.text = userIdentity.company
 
-        tvDataUnameReceived.text = uname
-        tvDataNameReceived.text = name
-        tvDataRepositoryReceived.text = repoText
-        Glide.with(this).load(profilePicture).circleCrop().into(tvDataProfilePicture)
-        tvDataFollowers.text = followers
-        tvDataFollowing.text = following
-        tvDataLocation.text = location
-        tvDataCompany.text = company
-
-        supportActionBar?.title = name
+        supportActionBar?.title = userIdentity.name
     }
 }

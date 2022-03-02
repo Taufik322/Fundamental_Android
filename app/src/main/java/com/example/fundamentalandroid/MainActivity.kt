@@ -35,15 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun moveActivity(user: User) {
         val moveIntent = Intent(this, UserDetail::class.java)
-
-        moveIntent.putExtra(UserDetail.EXTRA_UNAME, user.username)
-        moveIntent.putExtra(UserDetail.EXTRA_NAME, user.name)
-        moveIntent.putExtra(UserDetail.EXTRA_REPO, user.repository)
-        moveIntent.putExtra(UserDetail.EXTRA_PROFILE_PICTURE, user.profilePicture)
-        moveIntent.putExtra(UserDetail.EXTRA_FOLLOWERS, user.followers)
-        moveIntent.putExtra(UserDetail.EXTRA_FOLLOWING, user.following)
-        moveIntent.putExtra(UserDetail.EXTRA_LOCATION, user.location)
-        moveIntent.putExtra(UserDetail.EXTRA_COMPANY, user.company)
+        moveIntent.putExtra(UserDetail.EXTRA_USER_IDENTITY, user)
         startActivity(moveIntent)
     }
 
@@ -58,8 +50,17 @@ class MainActivity : AppCompatActivity() {
             val dataLocation = resources.getStringArray(R.array.location)
             val dataCompany = resources.getStringArray(R.array.company)
             val listUser = ArrayList<User>()
-            for (i in dataUsername.indices){
-                val user = User(dataUsername[i], dataName[i], dataProfilePicture.getResourceId(i, -1), dataRepository[i], dataFollowers[i], dataFollowing[i], dataLocation[i], dataCompany[i])
+            for (i in dataUsername.indices) {
+                val user = User(
+                    dataUsername[i],
+                    dataName[i],
+                    dataProfilePicture.getResourceId(i, -1),
+                    dataRepository[i],
+                    dataFollowers[i],
+                    dataFollowing[i],
+                    dataLocation[i],
+                    dataCompany[i]
+                )
                 listUser.add(user)
             }
             return listUser
