@@ -16,6 +16,7 @@ class UserDetail : AppCompatActivity() {
         const val EXTRA_FOLLOWERS = "extra_followers"
         const val EXTRA_FOLLOWING = "extra_following"
         const val EXTRA_LOCATION = "extra_location"
+        const val EXTRA_COMPANY = "extra_company"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,7 @@ class UserDetail : AppCompatActivity() {
         val tvDataFollowers: TextView = findViewById(R.id.tv_detail_followers)
         val tvDataFollowing: TextView = findViewById(R.id.tv_detail_following)
         val tvDataLocation: TextView = findViewById(R.id.tv_detail_location)
+        val tvDataCompany: TextView = findViewById(R.id.tv_detail_company)
 
         val uname = intent.getStringExtra(EXTRA_UNAME)
         val name = intent.getStringExtra(EXTRA_NAME)
@@ -38,6 +40,7 @@ class UserDetail : AppCompatActivity() {
         val followers = intent.getStringExtra(EXTRA_FOLLOWERS)
         val following = intent.getStringExtra(EXTRA_FOLLOWING)
         val location = intent.getStringExtra(EXTRA_LOCATION)
+        val company = intent.getStringExtra(EXTRA_COMPANY)
 
         tvDataUnameReceived.text = uname
         tvDataNameReceived.text = name
@@ -46,6 +49,7 @@ class UserDetail : AppCompatActivity() {
         tvDataFollowers.text = followers
         tvDataFollowing.text = following
         tvDataLocation.text = location
+        tvDataCompany.text = company
 
         supportActionBar?.title = name
     }
