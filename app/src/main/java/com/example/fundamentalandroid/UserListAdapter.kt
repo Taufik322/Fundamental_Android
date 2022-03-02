@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class UserListAdapter(private val listUser: ArrayList<User>): RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -31,7 +32,7 @@ class UserListAdapter(private val listUser: ArrayList<User>): RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val (username, name, profilePicture) = listUser[position]
-        holder.profileImg.setImageResource(profilePicture)
+        Glide.with(holder.itemView.context).load(profilePicture).circleCrop().into(holder.profileImg)
         holder.tvUsername.text = username
         holder.tvName.text = name
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }

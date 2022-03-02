@@ -40,7 +40,9 @@ class MainActivity : AppCompatActivity() {
         moveIntent.putExtra(UserDetail.EXTRA_NAME, user.name)
         moveIntent.putExtra(UserDetail.EXTRA_REPO, user.repository)
         moveIntent.putExtra(UserDetail.EXTRA_PROFILE_PICTURE, user.profilePicture)
-//
+        moveIntent.putExtra(UserDetail.EXTRA_FOLLOWERS, user.followers)
+        moveIntent.putExtra(UserDetail.EXTRA_FOLLOWING, user.following)
+        moveIntent.putExtra(UserDetail.EXTRA_LOCATION, user.location)
         startActivity(moveIntent)
     }
 
@@ -50,9 +52,12 @@ class MainActivity : AppCompatActivity() {
             val dataName = resources.getStringArray(R.array.name)
             val dataProfilePicture = resources.obtainTypedArray(R.array.avatar)
             val dataRepository = resources.getStringArray(R.array.repository)
+            val dataFollowers = resources.getStringArray(R.array.followers)
+            val dataFollowing = resources.getStringArray(R.array.following)
+            val dataLocation = resources.getStringArray(R.array.location)
             val listUser = ArrayList<User>()
             for (i in dataUsername.indices){
-                val user = User(dataUsername[i], dataName[i], dataProfilePicture.getResourceId(i, -1), dataRepository[i])
+                val user = User(dataUsername[i], dataName[i], dataProfilePicture.getResourceId(i, -1), dataRepository[i], dataFollowers[i], dataFollowing[i], dataLocation[i])
                 listUser.add(user)
             }
             return listUser

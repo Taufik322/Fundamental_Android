@@ -12,5 +12,6 @@
     <color name="blue_primary_light">#323542</color>
     <color name="blue_variant">#1F2229</color>
 
-
+    <color name="red_secondary">#BF271C</color>
+    <color name="red_secondary_light">#F34A3E</color>
 </resources>
