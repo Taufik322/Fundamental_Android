@@ -13,7 +13,6 @@ class UserDetail : AppCompatActivity() {
         const val EXTRA_USER_IDENTITY = "extra_user_identity"
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
