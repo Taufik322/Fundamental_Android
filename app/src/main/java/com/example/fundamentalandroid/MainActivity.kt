@@ -10,6 +10,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rvUsers: RecyclerView
     private val list = ArrayList<User>()
 
+//    test
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
