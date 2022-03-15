@@ -1,70 +1,46 @@
 package com.example.fundamentalandroid
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.view.Menu
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var rvUsers: RecyclerView
-    private val list = ArrayList<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        rvUsers = findViewById(R.id.rv_user_list)
-        rvUsers.setHasFixedSize(true)
-
-        list.addAll(listUsers)
-        showRecyclerList()
     }
 
-    private fun showRecyclerList() {
-        rvUsers.layoutManager = LinearLayoutManager(this)
-        val listUserAdapter = UserListAdapter(list)
-        rvUsers.adapter = listUserAdapter
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.actionbar_menu, menu)
 
-        listUserAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: User) {
-                moveActivity(data)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.queryHint = "Input Name"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            /*
+            Gunakan method ini ketika search selesai atau OK
+             */
+            override fun onQueryTextSubmit(query: String): Boolean {
+                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
+                searchView.clearFocus()
+                return true
+            }
+
+            /*
+            Gunakan method ini untuk merespon tiap perubahan huruf pada searchView
+             */
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
             }
         })
+        return true
     }
-
-    private fun moveActivity(user: User) {
-        val moveIntent = Intent(this, UserDetail::class.java)
-        moveIntent.putExtra(UserDetail.EXTRA_USER_IDENTITY, user)
-        startActivity(moveIntent)
-    }
-
-    private val listUsers: ArrayList<User>
-        get() {
-            val dataUsername = resources.getStringArray(R.array.username)
-            val dataName = resources.getStringArray(R.array.name)
-            val dataProfilePicture = resources.obtainTypedArray(R.array.avatar)
-            val dataRepository = resources.getStringArray(R.array.repository)
-            val dataFollowers = resources.getStringArray(R.array.followers)
-            val dataFollowing = resources.getStringArray(R.array.following)
-            val dataLocation = resources.getStringArray(R.array.location)
-            val dataCompany = resources.getStringArray(R.array.company)
-            val listUser = ArrayList<User>()
-            for (i in dataUsername.indices) {
-                val user = User(
-                    dataUsername[i],
-                    dataName[i],
-                    dataProfilePicture.getResourceId(i, -1),
-                    dataRepository[i],
-                    dataFollowers[i],
-                    dataFollowing[i],
-                    dataLocation[i],
-                    dataCompany[i]
-                )
-                listUser.add(user)
-            }
-            return listUser
-        }
-
-
 }
