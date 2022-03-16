@@ -1,70 +1,112 @@
 package com.example.fundamentalandroid
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.fundamentalandroid.databinding.ActivityMainBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var rvUsers: RecyclerView
-    private val list = ArrayList<User>()
+
+    private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        rvUsers = findViewById(R.id.rv_user_list)
-        rvUsers.setHasFixedSize(true)
-
-        list.addAll(listUsers)
-        showRecyclerList()
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvUserList.layoutManager = layoutManager
+//        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+//        binding.rvUserList.addItemDecoration(itemDecoration)
+        showLoading(false)
+        binding.notFound.visibility = View.GONE
     }
 
-    private fun showRecyclerList() {
-        rvUsers.layoutManager = LinearLayoutManager(this)
-        val listUserAdapter = UserListAdapter(list)
-        rvUsers.adapter = listUserAdapter
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.actionbar_menu, menu)
 
-        listUserAdapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: User) {
-                moveActivity(data)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.queryHint = "Input Name"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                findUsers(query)
+                searchView.clearFocus()
+                return true
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+        })
+        return true
+    }
+
+    private fun findUsers(name: String){
+        showLoading(true)
+        binding.notFound.visibility = View.GONE
+        val client = ApiConfig.getApiService().getUsersSearch(name)
+        client.enqueue(object : Callback<UsersResponse>{
+            override fun onResponse(call: Call<UsersResponse>, response: Response<UsersResponse>) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        setUserData(responseBody.items)
+                    }
+                } else {
+                    Log.e("MainActivity", "onFailure: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UsersResponse>, t: Throwable) {
+                Log.e("TAG", "onFailure: ${t.message}")
             }
         })
     }
 
-    private fun moveActivity(user: User) {
-        val moveIntent = Intent(this, UserDetail::class.java)
-        moveIntent.putExtra(UserDetail.EXTRA_USER_IDENTITY, user)
-        startActivity(moveIntent)
-    }
-
-    private val listUsers: ArrayList<User>
-        get() {
-            val dataUsername = resources.getStringArray(R.array.username)
-            val dataName = resources.getStringArray(R.array.name)
-            val dataProfilePicture = resources.obtainTypedArray(R.array.avatar)
-            val dataRepository = resources.getStringArray(R.array.repository)
-            val dataFollowers = resources.getStringArray(R.array.followers)
-            val dataFollowing = resources.getStringArray(R.array.following)
-            val dataLocation = resources.getStringArray(R.array.location)
-            val dataCompany = resources.getStringArray(R.array.company)
-            val listUser = ArrayList<User>()
-            for (i in dataUsername.indices) {
-                val user = User(
-                    dataUsername[i],
-                    dataName[i],
-                    dataProfilePicture.getResourceId(i, -1),
-                    dataRepository[i],
-                    dataFollowers[i],
-                    dataFollowing[i],
-                    dataLocation[i],
-                    dataCompany[i]
-                )
-                listUser.add(user)
-            }
-            return listUser
+    private fun setUserData(userData: List<DataItem>){
+        showLoading(false)
+        val listUserData = ArrayList<UserInfo>()
+        for(data in userData){
+            val user = UserInfo(data.login, data.avatarUrl)
+            listUserData.addAll(listOf(user))
+        }
+        val adapter = UserListAdapter(listUserData)
+        binding.rvUserList.adapter = adapter
+        if (adapter.itemCount == 0){
+            Toast.makeText(this, "User Not Found", Toast.LENGTH_LONG).show()
+            binding.notFound.visibility = View.VISIBLE
         }
 
+        adapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: UserInfo) {
+                val intent = Intent(this@MainActivity, UserDetail::class.java)
+                intent.putExtra(UserDetail.EXTRA_USER_IDENTITY, data)
+                startActivity(intent)
+            }
 
+        })
+    }
+
+    private fun showLoading(value: Boolean){
+        if (value){
+            binding.progressBar.visibility = View.VISIBLE
+        } else{
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 }

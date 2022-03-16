@@ -8,11 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class UserListAdapter(private val listUser: ArrayList<User>): RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
+class UserListAdapter(private val listUser: List<UserInfo>): RecyclerView.Adapter<UserListAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: User)
+        fun onItemClicked(data: UserInfo)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -22,7 +22,6 @@ class UserListAdapter(private val listUser: ArrayList<User>): RecyclerView.Adapt
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var profileImg: ImageView = itemView.findViewById(R.id.item_profile_picture)
         var tvName: TextView = itemView.findViewById(R.id.item_name)
-        var tvUsername: TextView = itemView.findViewById(R.id.item_username)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -31,9 +30,9 @@ class UserListAdapter(private val listUser: ArrayList<User>): RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (username, name, profilePicture) = listUser[position]
+        val name = listUser[position].login
+        val profilePicture = listUser[position].avatar
         Glide.with(holder.itemView.context).load(profilePicture).circleCrop().into(holder.profileImg)
-        holder.tvUsername.text = username
         holder.tvName.text = name
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
     }
