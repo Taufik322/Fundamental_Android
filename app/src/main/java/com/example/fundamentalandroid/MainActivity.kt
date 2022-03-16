@@ -2,10 +2,12 @@ package com.example.fundamentalandroid
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -26,9 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvUserList.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.rvUserList.addItemDecoration(itemDecoration)
+//        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+//        binding.rvUserList.addItemDecoration(itemDecoration)
         showLoading(false)
+        binding.notFound.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 findUsers(query)
+                searchView.clearFocus()
                 return true
             }
             override fun onQueryTextChange(newText: String): Boolean {
@@ -54,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun findUsers(name: String){
         showLoading(true)
+        binding.notFound.visibility = View.GONE
         val client = ApiConfig.getApiService().getUsersSearch(name)
         client.enqueue(object : Callback<UsersResponse>{
             override fun onResponse(call: Call<UsersResponse>, response: Response<UsersResponse>) {
@@ -82,6 +87,19 @@ class MainActivity : AppCompatActivity() {
         }
         val adapter = UserListAdapter(listUserData)
         binding.rvUserList.adapter = adapter
+        if (adapter.itemCount == 0){
+            Toast.makeText(this, "User Not Found", Toast.LENGTH_LONG).show()
+            binding.notFound.visibility = View.VISIBLE
+        }
+
+        adapter.setOnItemClickCallback(object : UserListAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: UserInfo) {
+                val intent = Intent(this@MainActivity, UserDetail::class.java)
+                intent.putExtra(UserDetail.EXTRA_USER_IDENTITY, data)
+                startActivity(intent)
+            }
+
+        })
     }
 
     private fun showLoading(value: Boolean){

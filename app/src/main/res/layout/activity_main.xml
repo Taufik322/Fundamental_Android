@@ -25,5 +25,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rv_user_list" />
 
+    <ImageView
+        android:id="@+id/not_found"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_baseline_error_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rv_user_list"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Not Found" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

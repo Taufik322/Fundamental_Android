@@ -20,14 +20,10 @@ class UserDetail : AppCompatActivity() {
         binding = ActivityUserDetailConstraintBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userIdentity = intent.getParcelableExtra<User>(EXTRA_USER_IDENTITY) as User
-        binding.tvDetailUsername.text = userIdentity.username
-        binding.tvDetailName.text = userIdentity.name
-        Glide.with(this).load(userIdentity.profilePicture).circleCrop().into(binding.imDetailProfilePicture)
-        binding.tvDetailFollowers.text = userIdentity.followers
-        binding.tvDetailFollowing.text = userIdentity.following
-        binding.tvDetailLocation.text = userIdentity.location
+        val userIdentity = intent.getParcelableExtra<UserInfo>(EXTRA_USER_IDENTITY) as UserInfo
+        binding.tvDetailUsername.text = userIdentity.login
+        Glide.with(this).load(userIdentity.avatar).circleCrop().into(binding.imDetailProfilePicture)
 
-        supportActionBar?.title = userIdentity.name
+        supportActionBar?.title = userIdentity.login
     }
 }
