@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_primary"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_list"
@@ -35,5 +35,19 @@
         app:layout_constraintStart_toStartOf="@+id/rv_user_list"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="Not Found" />
+
+    <TextView
+        android:id="@+id/not_found_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Not Found!"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_user_list"
+        app:layout_constraintEnd_toEndOf="@+id/rv_user_list"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/rv_user_list"
+        app:layout_constraintTop_toBottomOf="@+id/not_found"
+        app:layout_constraintVertical_bias="0.101" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

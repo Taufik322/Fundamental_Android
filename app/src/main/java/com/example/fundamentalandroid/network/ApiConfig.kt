@@ -1,9 +1,10 @@
-package com.example.fundamentalandroid
+package com.example.fundamentalandroid.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Headers
 
 class ApiConfig {
     companion object {

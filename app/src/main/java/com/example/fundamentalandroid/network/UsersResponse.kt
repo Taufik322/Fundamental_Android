@@ -1,4 +1,4 @@
-package com.example.fundamentalandroid
+package com.example.fundamentalandroid.network
 
 import com.google.gson.annotations.SerializedName
 
