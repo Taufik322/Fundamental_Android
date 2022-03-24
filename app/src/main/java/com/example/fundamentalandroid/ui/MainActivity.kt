@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -15,6 +16,8 @@ import com.example.fundamentalandroid.adapter.UserListAdapter
 import com.example.fundamentalandroid.databinding.ActivityMainBinding
 import com.example.fundamentalandroid.model.MainViewModel
 import com.example.fundamentalandroid.network.DataItem
+import com.example.fundamentalandroid.ui.favorite.FavoriteActivity
+import com.example.fundamentalandroid.ui.setting.SettingActivity
 import com.example.fundamentalandroid.ui.userDetail.UserDetail
 
 class MainActivity : AppCompatActivity() {
@@ -70,6 +73,22 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.setting -> {
+                val intent = Intent(this, SettingActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.favorite -> {
+                val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return true
+        }
     }
 
     private fun setUserData(userData: List<DataItem>) {
