@@ -7,18 +7,23 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fundamentalandroid.*
 import com.example.fundamentalandroid.adapter.UserListAdapter
+import com.example.fundamentalandroid.database.UserFavorite
 import com.example.fundamentalandroid.databinding.ActivityMainBinding
+import com.example.fundamentalandroid.databinding.ActivitySettingBinding
 import com.example.fundamentalandroid.model.MainViewModel
 import com.example.fundamentalandroid.network.DataItem
 import com.example.fundamentalandroid.ui.favorite.FavoriteActivity
-import com.example.fundamentalandroid.ui.setting.SettingActivity
+import com.example.fundamentalandroid.ui.setting.*
 import com.example.fundamentalandroid.ui.userDetail.UserDetail
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         binding.notFoundText.visibility = View.GONE
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            MainViewModel::class.java)
+            MainViewModel::class.java
+        )
         viewModel.getFindUsers().observe(this@MainActivity) {
             showLoading(false)
             binding.notFound.visibility = View.INVISIBLE
@@ -49,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this@MainActivity) {
             showLoading(it)
         }
+
+        viewModel.findUsers(randomStartingList(2))
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -115,5 +124,12 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    private fun randomStartingList(length: Int): String {
+        val alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { alphabet.random() }
+            .joinToString("")
     }
 }

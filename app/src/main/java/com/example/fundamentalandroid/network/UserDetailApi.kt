@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class UserDetailApi(
 
+    @field:SerializedName("id")
+    val id: Int,
+
     @field:SerializedName("name")
     val name: String,
 

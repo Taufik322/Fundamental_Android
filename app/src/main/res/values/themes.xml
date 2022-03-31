@@ -12,6 +12,16 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="cardBackgroundColor">@color/blue_primary_light</item>
+        <item name="android:background">@color/blue_primary_light</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TabLayoutCustom">
+        <item name="tabIndicatorColor">@color/red_secondary_light</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabSelectedTextColor">@color/red_secondary_light</item>
+        <item name="tabBackground">@color/blue_primary_light</item>
     </style>
 
     <style name="Text">
@@ -26,10 +36,12 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="SplashScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowActionBar">false</item>
+    <style name="Company">
+        <item name="android:drawableStart">@drawable/ic_suitcase_svgrepo_com</item>
+    </style>
+
+    <style name="Location">
+        <item name="android:drawableStart">@drawable/ic_location_icon</item>
     </style>
 
 </resources>
