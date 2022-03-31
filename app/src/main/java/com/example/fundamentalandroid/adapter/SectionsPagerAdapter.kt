@@ -15,12 +15,12 @@ class SectionsPagerAdapter(activity: AppCompatActivity, data: Bundle) : Fragment
     }
 
     override fun createFragment(position: Int): Fragment {
-        var fragmet: Fragment? = null
+        var fragment: Fragment? = null
         when (position) {
-            0 -> fragmet = FollowersFragment()
-            1 -> fragmet = FollowingFragment()
+            0 -> fragment = FollowersFragment()
+            1 -> fragment = FollowingFragment()
         }
-        fragmet?.arguments = this.fragmentBundle
-        return fragmet as Fragment
+        fragment?.arguments = this.fragmentBundle
+        return fragment as Fragment
     }
 }

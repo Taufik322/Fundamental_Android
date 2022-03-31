@@ -7,4 +7,14 @@
         android:title="Search Users"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|always" />
+
+    <item android:id="@+id/favorite"
+        android:title="Favorite"
+        android:icon="@drawable/ic_favorite_actionbar"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/setting"
+        android:title="Settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        app:showAsAction="always"/>
 </menu>

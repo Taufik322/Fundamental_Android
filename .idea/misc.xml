@@ -3,17 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.151" />
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/drawable/ic_favorite_false.xml" value="0.151" />
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/drawable/ic_favorite_true.xml" value="0.151" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/drawable/ic_location_icon.xml" value="0.183" />
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/drawable/ic_location_icon_black.xml" value="0.1" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/drawable/ic_location_svgrepo_com.xml" value="0.183" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/drawable/ic_suitcase_svgrepo_com.xml" value="0.183" />
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/drawable/ic_suitcase_svgrepo_com_black.xml" value="0.1" />
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/activity_favorite.xml" value="0.10029251984956122" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/activity_main.xml" value="0.136" />
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/activity_setting.xml" value="0.264" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/activity_splash_screeen_github.xml" value="0.2359375" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/activity_user_detail.xml" value="0.1" />
-        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/activity_user_detail_constraint.xml" value="0.264" />
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/activity_user_detail_constraint.xml" value="0.2" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/fragment_followers.xml" value="0.2" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/fragment_following.xml" value="0.1" />
         <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/layout/item_user_row.xml" value="0.2" />
-        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/menu/actionbar_menu.xml" value="0.20521590423257802" />
+        <entry key="..\:/Users/TAUFIK/Documents/Project Android Studio/Fundamental Android/Project/app/src/main/res/menu/actionbar_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
